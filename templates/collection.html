@@ -1,0 +1,68 @@
+{% load static %}
+{% static "images" as baseUrl%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Collection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="icon" href="{{baseUrl}}/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+{% include 'navBar.html'%}
+
+<body>
+    <div class = "container cont">
+
+        {% if found %}
+
+            <h2><span class="badge bd">Collection</span></h2>
+            <div class = "row rowCust">
+
+                {% for pr in products %}
+
+                <div class = "col-md-3">
+                    <div class = "product-top text-center">
+                        <img src = "{{baseUrl}}/{{pr.image_name}}">
+                        <div class = "overlay">
+                            <a href = "{% url 'product' pr.id %}" >
+                                <button type = "button" class = "btn btn-secondary" title = "View Product">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="product-bottom text-center" style="text-align: center">
+                        <h3>{{pr.name}}</h3>
+                        <h5>{{pr.price}} €</h5>
+                    </div>
+                </div>
+
+                {% endfor %}
+                
+            </div>
+        
+        {% else %}
+            
+            <div class="container text-center">
+                <div class="alert alert-warning" role="alert">
+                    <b>{{mess}}</b>
+                </div>
+            </div>
+        
+        {% endif %}
+
+    </div>
+
+    <!-- jQuery library -->
+	<script src="js/jquery.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script	src="js/bootstrap.min.js"></script>
+
+</body>
+</html>

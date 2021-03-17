@@ -1,0 +1,77 @@
+{% load static %}
+{% static "images" as baseUrl%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product display</title>
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <link rel="icon" href="{{baseUrl}}/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+</head>
+
+{% include 'navBar.html'%}
+
+<body>
+  <div class="container" style="max-width: 80%" >
+
+    {% if found %}
+
+      <div class="card mb-3" style="max-width: 100%; border-color: #27272c">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="{{baseUrl}}/{{pr.image_name}}" class="card-img" alt="IMAGE NOT FOUND">
+          </div>
+          <div class="col-md-8">
+            <div class="card-header " style="border-color:#27272c; background-color: #ed8074">
+              <h3 class="card-title" style="text-align: center; color: white">{{pr.name}}</h3>
+            </div>
+            <div class="card-body">
+              <div class="card-text" style="text-align: left;"><h4>Product Info</h4></div>
+              <p class="card-text">
+                <ul class="list">
+                  <li>Price: {{pr.price}} €</li>
+                  <li>Brand: {{pr.brand}} </li>
+                  <li>Size: {{pr.size}} </li>
+                  <li>Gender: {{pr.gender}} </li>
+                  <li>Color: {{pr.color}} </li>
+                  <li>Packaged: {{pr.packaged}} </li>
+                  <li>Purchase Date: {{pr.purchase_date}} </li>  
+                  <li>Owner: {{pr.user}} </li> 
+                  <li>Owner's Rating: 
+                    <i class="fa fa-star" style="color: #ed8074;"></i>
+                    <i class="fa fa-star" style="color: #ed8074;"></i>
+                    <i class="fa fa-star" style="color: #ed8074;"></i>
+                    <i class="fa fa-star-half-o" style="color: #ed8074;"></i>
+                  </li> 
+                </ul>
+              </p>
+              <p class="card-text" style="text-align: left;"><h4>Description</h4> {{pr.description}} </p>
+            </div>
+            <div class="card-text" style="text-align: right;margin-right: 5px;"><small class="text-muted">Post Date: {{pr.post_date}}</small></div>
+            <div class="card-footer" style="border-color: #27272c; padding-bottom: 30px;">
+              <div class="buttons" style="padding-top: 25px;">
+                <form action="{% url 'collection' %}">
+                  <button type="submit" id="add-to-cart">Go Back</button>
+                </form>               
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+    {% else %}
+
+      <div class="container text-center">
+        <div class="alert alert-warning" role="alert">
+            <b>{{mess}}</b>
+        </div>
+      </div>
+
+    {% endif %}
+
+  </div>
+</body>
+</html> 
